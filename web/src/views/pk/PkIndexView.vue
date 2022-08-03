@@ -1,7 +1,5 @@
 <template>
-  <PlayGround>
-    对战
-  </PlayGround>
+  <PlayGround />
 </template>
 
 <script>
