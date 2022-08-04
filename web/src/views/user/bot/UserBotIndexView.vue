@@ -38,8 +38,7 @@
                     </div>
                     <div class="mb-3">
                       <label for="add-bot-code" class="form-label">Bot Code</label>
-                      <VAceEditor v-model:value="botadd.content" @init="editorInit" lang="c_cpp" theme="textmate"
-                        style="height: 300px" />
+                      <AceEditor v-model:value="botadd.content" />
                     </div>
                   </div>
                   <div class="modal-footer">
@@ -93,8 +92,7 @@
                             </div>
                             <div class="mb-3">
                               <label for="update-bot-code" class="form-label">Bot Code</label>
-                              <VAceEditor v-model:value="bot.content" @init="editorInit" lang="c_cpp"
-                                theme="textmate" style="height: 300px" />
+                              <AceEditor v-model:value="bot.content" />
                             </div>
                           </div>
                           <div class="modal-footer">
@@ -122,16 +120,12 @@ import { ref, reactive } from 'vue';
 import $ from 'jquery';
 import { useStore } from 'vuex';
 import { Modal } from 'bootstrap/dist/js/bootstrap';
-import { VAceEditor } from 'vue3-ace-editor';
-import ace from 'ace-builds';
+import AceEditor from './VAceEditor.vue';
 export default {
   components: {
-    VAceEditor
+    AceEditor
   },
   setup() {
-    ace.config.set(
-      "basePath",
-      "https://cdn.jsdelivr.net/npm/ace-builds@" + require('ace-builds').version + "/src-noconflict/")
     const store = useStore();
     let bots = ref([]);
 
@@ -236,7 +230,7 @@ export default {
       add_bot,
       remove_bot,
       update_bot,
-      refresh_bots
+      refresh_bots,
     }
   }
 }
