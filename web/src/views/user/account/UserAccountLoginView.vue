@@ -1,5 +1,5 @@
 <template>
-  <ContentField class="loginform">
+  <ContentField class="loginform" v-if="!$store.state.user.pulling_info">
     <div class="row justify-content-md-center">
       <div class="col-12">
         <form @submit.prevent="login">
@@ -23,7 +23,7 @@
     </div>
     <div class="row p-2 px-1">
       <div class="col-2">
-        <a class="font-size-sm text-muted" href="javascript:void(0);">注册</a>
+        <router-link class="font-size-sm text-muted" :to="{ name: 'user_account_register'}">注册</router-link>
       </div>
       <div class="col-1 ant-divider ant-divider-vertical" role="separator"></div>
       <div class="col-3">
