@@ -2,7 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import PkIndexView from '@/views/pk/PkIndexView.vue'
 import RecordIndexView from '@/views/record/RecordIndexView.vue'
 import RankLisIndextView from '@/views/ranklist/RankListIndexView.vue'
+import GameLisIndextView from '@/views/gamelist/GameListIndexView.vue'
 import UserBotIndexView from '@/views/user/bot/UserBotIndexView.vue'
+import UserAccountProfileView from '@/views/user/account/UserAccountProfileView';
 import NotFound from '@/views/error/NotFound.vue'
 import UserAccountLoginView from "@/views/user/account/UserAccountLoginView.vue";
 import UserAccountRegisterView from "@/views/user/account/UserAccountRegisterView.vue";
@@ -12,7 +14,7 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    redirect: '/pk/',
+    redirect: '/gamelist/',
     meta: {
       requestAuth: true,
     },
@@ -42,9 +44,25 @@ const routes = [
     },
   },
   {
+    path: '/gamelist/',
+    name: 'gamelist_index',
+    component: GameLisIndextView,
+    meta: {
+      requestAuth: true,
+    },
+  },
+  {
     path: '/user/bot/',
     name: 'user_bot_index',
     component: UserBotIndexView,
+    meta: {
+      requestAuth: true,
+    },
+  },
+  {
+    path: '/user/account/profile/',
+    name: 'user_account_profile',
+    component: UserAccountProfileView,
     meta: {
       requestAuth: true,
     },
@@ -88,7 +106,25 @@ router.beforeEach((to, from, next) => {
 
   let flag = 1;
   
-  const jwt_token = localStorage.getItem("jwt_token");
+  // const jwt_token = localStorage.getItem("jwt_token");
+  // if (jwt_token) {
+  //   store.commit("updateToken", jwt_token);
+  //   store.dispatch("getInfo", {
+  //     success() {
+  //       store.dispatch("updatePullingInfo", false);
+  //     },
+  //     error() {
+  //       store.dispatch("updatePullingInfo", false);
+  //       alert("token无效,请重新登录！");
+  //       router.push({ name: 'user_account_login' });
+  //     }
+  //   });
+  // } else {
+  //   store.dispatch("updatePullingInfo", false);
+  //   flag = 2;
+  // }
+
+  const jwt_token = store.state.user.token;
   if (jwt_token) {
     store.commit("updateToken", jwt_token);
     store.dispatch("getInfo", {
@@ -113,11 +149,13 @@ router.beforeEach((to, from, next) => {
     if (flag === 1) {
       next();
     } else {
-      alert("请先进行登录！");
       next({ name: "user_account_login" });
+      alert("请先进行登录！");
     }
   } else {
     next();
   }
+
+  
 });
 export default router

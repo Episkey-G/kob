@@ -9,10 +9,16 @@
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
+            <router-link :class="route_name == 'gamelist_index' ? 'nav-link active' : 'nav-link'"
+              :to="{name: 'gamelist_index' }">
+              游戏
+            </router-link>
+          </li>
+          <!-- <li class="nav-item">
             <router-link :class="route_name == 'pk_index' ? 'nav-link active' : 'nav-link'" :to="{ name: 'pk_index'}">
               对战
             </router-link>
-          </li>
+          </li> -->
           <li class="nav-item">
             <router-link :class="route_name == 'record_index' ? 'nav-link active' : 'nav-link'"
               :to="{name: 'record_index'}">
@@ -31,11 +37,14 @@
             <!-- 判断是否被点击 -->
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
               data-bs-toggle="dropdown" aria-expanded="false">
-              {{$store.state.user.username}}
+              <img class="photo" :src="$store.state.user.photo" alt="xxx">
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <li>
                 <router-link class="dropdown-item" :to="{name: 'user_bot_index'}">我的Bot</router-link>
+              </li>
+              <li>
+                <router-link class="dropdown-item" :to="{ name: 'user_account_profile'}">个人信息</router-link>
               </li>
               <li>
                 <hr class="dropdown-divider">
@@ -91,5 +100,9 @@ export default {
 </script>
 
 <style scoped>
-
+.photo {
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+}
 </style>
