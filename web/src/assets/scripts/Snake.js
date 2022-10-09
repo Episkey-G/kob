@@ -73,10 +73,6 @@ export  class Snake extends AcGameObject {
       this.cells[i] = JSON.parse(JSON.stringify(this.cells[i - 1]));
     }
 
-    // 蛇如果死亡，则无法进行下一步操作
-    if (!this.gamemap.check_valid(this.next_cell)) {
-      this.status = "die";
-    }
   }
 
   update_move() {
