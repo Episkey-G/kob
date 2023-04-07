@@ -78,6 +78,10 @@ export default {
 
 <style scoped>
 .loginform {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
   width: 450px;
   height: 348.398px;
 }

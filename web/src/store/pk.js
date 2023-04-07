@@ -17,7 +17,7 @@ export default {
   getters: {
   },
   mutations: {
-    updateSocket(state, socket) {
+    updateSocket(state, socket) { 
       state.socket = socket;
     },
     updateOpponent(state, opponent) {
