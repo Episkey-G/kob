@@ -48,7 +48,6 @@
               <th>作者</th>
               <th>创建时间</th>
               <th>修改时间</th>
-              <th>操作</th>
             </tr>
           </thead>
           <tbody>
@@ -63,10 +62,7 @@
               <td>{{ arr[game.id] }}</td>
               <td>{{game.createTime}}</td>
               <td>{{game.modifyTime}}</td>
-              <td>
-                <button type="button" class="btn btn-secondary" style="margin-right:10px">修改</button>
-                <button type="button" class="btn btn-danger">删除</button>
-              </td>
+
             </tr>
           </tbody>
         </table>

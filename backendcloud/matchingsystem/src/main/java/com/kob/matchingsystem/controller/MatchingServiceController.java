@@ -13,7 +13,11 @@ import java.util.Objects;
 public class MatchingServiceController {
     @Autowired
     private MatchingService matchingService;
-
+    /**
+     * 添加玩家进入匹配
+     * @param data
+     * @return
+     */
     @PostMapping("/player/add/")
     public String addPlayer(@RequestParam MultiValueMap<String, String> data) {
         Integer userId = Integer.parseInt(Objects.requireNonNull(data.getFirst("user_id")));
@@ -21,7 +25,11 @@ public class MatchingServiceController {
         Integer botId = Integer.parseInt(Objects.requireNonNull(data.getFirst("bot_id")));
         return matchingService.addPlayer(userId, rating, botId);
     }
-
+    /**
+     * 删除玩家
+     * @param data
+     * @return
+     */
     @PostMapping("/player/remove/")
     public String removePlayer(@RequestParam MultiValueMap<String, String> data) {
         Integer userId = Integer.parseInt(Objects.requireNonNull(data.getFirst("user_id")));

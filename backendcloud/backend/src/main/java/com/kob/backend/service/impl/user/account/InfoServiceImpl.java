@@ -12,6 +12,10 @@ import java.util.Map;
 
 @Service
 public class InfoServiceImpl implements InfoService {
+    /**
+     * 获取用户信息
+     * @return 用户信息
+     */
     @Override
     public Map<String, String> getInfo() {
         UsernamePasswordAuthenticationToken authentication =
@@ -24,6 +28,7 @@ public class InfoServiceImpl implements InfoService {
         map.put("error_message", "success");
         map.put("id", user.getId().toString());
         map.put("username", user.getUsername());
+        map.put("description", user.getDescription());
         map.put("photo", user.getPhoto());
         return map;
     }

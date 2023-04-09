@@ -25,12 +25,19 @@ public class SecurityConfig{
     private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
     @Autowired
     private AuthenticationConfiguration authenticationConfiguration;
-
+    /**
+     * 设置密码加密方式
+     * @return
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
+    /**
+     * 设置认证管理器
+     * @return
+     * @throws Exception
+     */
     @Bean
     public AuthenticationManager authenticationManager() throws Exception{
         AuthenticationManager authenticationManager = authenticationConfiguration.getAuthenticationManager();

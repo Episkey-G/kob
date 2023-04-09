@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.kob.backend.consumer.WebSocketServer;
 import com.kob.backend.pojo.Bot;
 import com.kob.backend.pojo.Record;
+import com.kob.backend.pojo.User;
 import lombok.Data;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -31,7 +32,7 @@ public class Game extends Thread{
     private final static String addBotUrl = "http://127.0.0.1:3002/bot/add/";
 
     /**
-     * 存入玩家信息
+     * 初始化游戏
      * @param rows
      * @param cols
      * @param inner_walls_count
@@ -196,7 +197,9 @@ public class Game extends Thread{
         WebSocketServer.restTemplate.postForObject(addBotUrl, data, String.class);
 
     }
-
+    /**
+     * 一局游戏的主循环
+     */
     private boolean nextStep() { //等待两名玩家下一步操作
         try {
             Thread.sleep(200);
@@ -227,7 +230,10 @@ public class Game extends Thread{
 
         return false;
     }
-
+    /**
+     * 两个玩家都下完了一步，判断是否合法
+     * @return
+     */
     private boolean check_valid(List<Cell> cellsA, List<Cell> cellsB) {
         int n = cellsA.size();
         Cell cell = cellsA.get(n - 1);
@@ -245,8 +251,10 @@ public class Game extends Thread{
 
         return true;
     }
-
-    private void judge() { // 判断两条蛇操作是否合法
+    /**
+     * 判断两条蛇操作是否合法
+     */
+    private void judge() {
         List<Cell> cellsA = playerA.getCells();
         List<Cell> cellsB = playerB.getCells();
 
@@ -264,14 +272,15 @@ public class Game extends Thread{
             }
         }
     }
-
     private void sendAllMessage(String message) { //向每一个人传递信息
         if (WebSocketServer.users.get(playerA.getId()) != null)
             WebSocketServer.users.get(playerA.getId()).sendMessage(message);
         if (WebSocketServer.users.get(playerB.getId()) != null)
             WebSocketServer.users.get(playerB.getId()).sendMessage(message);
     }
-
+    /**
+     * 传递移动信息
+     */
     private void sendMove() { // 向两个Client传递移动信息
         lock.lock();
         try {
@@ -296,8 +305,34 @@ public class Game extends Thread{
         }
         return res.toString();
     }
+    /**
+     * 更新用户的rating
+     */
+    private void updateUserRating(Player player, Integer rating) {
+        User user = WebSocketServer.userMapper.selectById(player.getId());
+        user.setRating(rating);
+        WebSocketServer.userMapper.updateById(user);
+    }
 
+    /**
+     * 保存游戏结果
+     */
     private void saveToDayaBase() {
+        // 更新rating
+        Integer ratingA = WebSocketServer.userMapper.selectById(playerA.getId()).getRating();
+        Integer ratingB = WebSocketServer.userMapper.selectById(playerB.getId()).getRating();
+
+        if (loser.equals("A")) {
+            ratingA -= 2;
+            ratingB += 5;
+        } else if (loser.equals("B")) {
+            ratingA += 5;
+            ratingB -= 2;
+        }
+
+        updateUserRating(playerA, ratingA);
+        updateUserRating(playerB, ratingB);
+
         Record record = new Record(
                 null,
                 playerA.getId(),

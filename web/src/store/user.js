@@ -4,6 +4,7 @@ export default {
   state: {
     id: "",
     username: "",
+    description: "",
     photo: "",
     token: "",
     is_login: false,
@@ -84,6 +85,32 @@ export default {
     },
     updatePullingInfo(context) {
       context.commit("updatePullingInfo");
+    },
+    update_password(context, data) {
+      $.ajax({
+        type: "POST",
+        url: "http://127.0.0.1:3000/user/account/updatePassword/",
+        data: {
+          oldPassword: data.old_password,
+          newPassword: data.new_password,
+          confirmPassword: data.confirm_password,
+        },
+        headers: {
+          authorization: "Bearer " + context.state.token,
+        },
+        success(resp) {
+          if (resp.error_message === "success") {
+            context.commit("updateToken", resp.token);
+            localStorage.setItem("jwt_token", resp.token);
+            data.success(resp);
+          } else {
+            data.error(resp);
+          }
+        },
+        error(resp) {
+          data.error(resp);
+        },
+      });
     }
   },
   modules: {

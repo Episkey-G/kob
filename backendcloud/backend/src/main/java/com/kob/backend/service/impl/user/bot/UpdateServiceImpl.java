@@ -30,6 +30,9 @@ public class UpdateServiceImpl implements UpdateService {
         String title = data.get("title");
         String description = data.get("description");
         String content = data.get("content");
+        System.out.println(title);
+        System.out.println(description);
+        System.out.println(content);
 
         Map<String, String> map = new HashMap<>();
 

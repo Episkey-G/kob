@@ -1,0 +1,7 @@
+githubclub:
+  config:
+    username: Episkey-G #用户名
+    token: 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 #token填写在这里
+    depository: blogimages #仓库名
+    message: fromJavaServe #描述
+    domain: https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@latest #cdn加速域名

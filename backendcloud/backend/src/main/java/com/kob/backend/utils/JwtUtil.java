@@ -19,12 +19,23 @@ public class JwtUtil {
     public static String getUUID() {
         return UUID.randomUUID().toString().replaceAll("-", "");
     }
-
+    /**
+     * 创建jwt
+     *
+     * @param subject
+     * @return
+     */
     public static String createJWT(String subject) {
         JwtBuilder builder = getJwtBuilder(subject, null, getUUID());
         return builder.compact();
     }
-
+    /**
+     * 创建jwt
+     *
+     * @param subject
+     * @param ttlMillis
+     * @return
+     */
     private static JwtBuilder getJwtBuilder(String subject, Long ttlMillis, String uuid) {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
         SecretKey secretKey = generalKey();
@@ -44,12 +55,22 @@ public class JwtUtil {
                 .signWith(secretKey, signatureAlgorithm)
                 .setExpiration(expDate);
     }
-
+    /**
+     * 由字符串生成加密key
+     *
+     * @return
+     */
     public static SecretKey generalKey() {
         byte[] encodeKey = Base64.getDecoder().decode(JwtUtil.JWT_KEY);
         return new SecretKeySpec(encodeKey, 0, encodeKey.length, "HmacSHA256");
     }
-
+    /**
+     * 解析jwt
+     *
+     * @param jwt
+     * @return
+     * @throws Exception
+     */
     public static Claims parseJWT(String jwt) throws Exception {
         SecretKey secretKey = generalKey();
         return Jwts.parserBuilder()

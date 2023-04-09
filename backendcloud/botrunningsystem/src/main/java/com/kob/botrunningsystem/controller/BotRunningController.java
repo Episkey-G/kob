@@ -13,7 +13,11 @@ import java.util.Objects;
 public class BotRunningController {
     @Autowired
     private BotRunningService botRunningService;
-
+    /**
+     * 通过botId获取bot的代码
+     * @param data
+     * @return
+     */
     @PostMapping("/bot/add/")
     public String addBot(@RequestParam MultiValueMap<String, String> data) {
         Integer userId = Integer.parseInt(Objects.requireNonNull(data.getFirst("user_id")));

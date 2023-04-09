@@ -9,18 +9,31 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.UUID;
+/**
+ * 用于处理bot的代码
+ * 通过反射调用bot的代码
+ * 通过restTemplate调用pk系统的接口
+ * 通过继承Thread类，添加超时机制
+ */
 @Component
 public class Consumer extends Thread{
 
     private Bot bot;
     private static RestTemplate restTemplate;
     private final static String receiveBotMoveUrl = "http://127.0.0.1:3000/pk/receive/bot/move/";
-
+    /**
+     * 通过setter注入restTemplate
+     * @param restTemplate
+     */
     @Autowired
     public void setRestTemplate(RestTemplate restTemplate) {
         Consumer.restTemplate = restTemplate;
     }
-
+    /**
+     * 重写start方法，添加超时机制
+     * @param timeout
+     * @param bot
+     */
     public void startTimeout(long timeout, Bot bot) {
         this.bot = bot;
         this.start();
@@ -45,6 +58,11 @@ public class Consumer extends Thread{
         return code.substring(0, k) + uid + code.substring(k);
     }
 
+    /**
+     * 通过反射调用用户的bot类
+     * 通过restTemplate调用matchingsystem的接口
+     * 传递参数：user_id, direction
+     */
     @Override
     public void run() {
         UUID uuid = UUID.randomUUID();

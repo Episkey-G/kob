@@ -4,7 +4,10 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
-
+/**
+ * 机器人线程池
+ * 用于执行机器人代码
+ */
 public class BotPool extends Thread{
     private final static ReentrantLock lock = new ReentrantLock();
     private final Condition condition = lock.newCondition();

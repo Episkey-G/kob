@@ -20,6 +20,8 @@ export default {
     const store = useStore();
     const socketUrl = `ws://127.0.0.1:3000/websocket/${store.state.user.token}/`;
 
+
+
     let socket = null;
     onMounted(() => {
       store.commit("updateOpponent", {
@@ -36,12 +38,10 @@ export default {
       socket.onmessage = msg => {
         const data = JSON.parse(msg.data);
         if (data.event === "start-matching") {  // 匹配成功
-          setTimeout(() => {
-            store.commit("updateOpponent", {
-              username: data.opponent_username,
-              photo: data.opponent_photo,
-            });
-          }, 1000);
+          store.commit("updateOpponent", {
+            username: data.opponent_username,
+            photo: data.opponent_photo,
+          });
           setTimeout(() => {
             store.commit("updateStatus", "playing");
           }, 200);
@@ -74,6 +74,7 @@ export default {
       socket.close();
       store.commit("updateStatus", "matching");
       store.commit("updateLoser", "none");
+      store.commit("updateIsRecord", false);
     });
   }
 }
