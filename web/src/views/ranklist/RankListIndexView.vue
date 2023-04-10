@@ -57,14 +57,14 @@ export default {
     const click_page = page => {
       if (page === -2) page = current_page - 1;
       else if (page === -1) page = current_page + 1;
-      let max_pages = parseInt(Math.ceil(total_users / 3));
+      let max_pages = parseInt(Math.ceil(total_users / 10));
 
       if (page < 1 || page > max_pages) return;
       pull_page(page);
     }
 
     const update_pages = () => {
-      let max_pages = parseInt(Math.ceil(total_users / 3));
+      let max_pages = parseInt(Math.ceil(total_users / 10));
       let new_pages = [];
       let start_page = Math.max(1, current_page - 2);
       let end_page = Math.min(max_pages, current_page + 2);
@@ -81,7 +81,7 @@ export default {
     const pull_page = page => {
       current_page = page;
       $.ajax({
-        url: "http://127.0.0.1:3000/rank/getList/",
+        url: "https://app2800.acapp.acwing.com.cn/api/rank/getList/",
         data: {
           page,
         },

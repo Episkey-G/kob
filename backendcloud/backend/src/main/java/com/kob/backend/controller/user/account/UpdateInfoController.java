@@ -13,7 +13,7 @@ public class UpdateInfoController {
     @Autowired
     private UpdateInfoService updateInfoService;
 
-    @PostMapping("/user/account/updateInfo/")
+    @PostMapping("/api/user/account/updateInfo/")
     public Map<String, String> updateInfo(@RequestParam Map<String, String> data) {
         return updateInfoService.updateUserInfo(data);
     }

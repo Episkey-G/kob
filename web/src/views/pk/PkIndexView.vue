@@ -2,6 +2,8 @@
   <PlayGround v-if="$store.state.pk.status === 'playing'" />
   <MatchGround v-if="$store.state.pk.status === 'matching'" />
   <ResultBoard v-if="$store.state.pk.loser != 'none'" />
+  <div class="user-blue" v-if="$store.state.pk.status === 'playing' && parseInt($store.state.user.id) === parseInt($store.state.pk.a_id)">蓝方</div>
+  <div class="user-red" v-if="$store.state.pk.status === 'playing' && parseInt($store.state.user.id) === parseInt($store.state.pk.b_id)">红方</div>
 </template>
 
 <script>
@@ -18,7 +20,7 @@ export default {
   },
   setup() {
     const store = useStore();
-    const socketUrl = `ws://127.0.0.1:3000/websocket/${store.state.user.token}/`;
+    const socketUrl = `wss://app2800.acapp.acwing.com.cn/websocket/${store.state.user.token}/`;
 
 
 
@@ -81,5 +83,17 @@ export default {
 </script>
 
 <style scoped>
+div.user-blue {
+  text-align: center;
+  color: lightblue;
+  font-size: 30px;
+  font-weight: 600;
+}
+div.user-red {
+  text-align: center;
+  color: lightcoral;
+  font-size: 30px;
+  font-weight: 600;
+}
 
 </style>

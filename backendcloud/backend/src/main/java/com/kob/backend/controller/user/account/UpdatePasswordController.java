@@ -12,7 +12,7 @@ import java.util.Map;
 public class UpdatePasswordController {
     @Autowired
     private UpdatePasswordService updatePasswordService;
-    @PostMapping("/user/account/updatePassword/")
+    @PostMapping("/api/user/account/updatePassword/")
     public Map<String, String> updatePassword(@RequestParam Map<String, String> data) {
         String oldPassword = data.get("oldPassword");
         String newPassword = data.get("newPassword");

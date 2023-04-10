@@ -16,12 +16,12 @@ public class GetGameListController {
     @Autowired
     private GetGameListService getGameListService;
 
-    @GetMapping("/user/game/getGameList/")
+    @GetMapping("/api/user/game/getGameList/")
     public List<Game> getList() {
         return getGameListService.getGameList();
     }
 
-    @GetMapping("/user/account/username/")
+    @GetMapping("/api/user/account/username/")
     public Map<String, String> getUser(@RequestParam Map<String, String> data) {
         return getGameListService.getUser(data);
     }

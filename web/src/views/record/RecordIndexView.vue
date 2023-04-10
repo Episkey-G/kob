@@ -74,7 +74,7 @@ export default {
       let max_pages = parseInt(Math.ceil(total_records / 10));
 
       if (page < 1 || page > max_pages) return;
-      pull_page(page);
+      
     }
 
     const update_pages = () => {
@@ -95,7 +95,7 @@ export default {
     const pull_page = page => {
       current_page = page;
       $.ajax({
-          url: "http://127.0.0.1:3000/record/getList/",
+          url: "https://app2800.acapp.acwing.com.cn/api/record/getList/",
           data: {
             page,
           },

@@ -48,6 +48,7 @@
               <th>作者</th>
               <th>创建时间</th>
               <th>修改时间</th>
+
             </tr>
           </thead>
           <tbody>
@@ -84,7 +85,7 @@ export default {
     let arr = reactive([]);
     const refresh_bots = () => {
       $.ajax({
-        url: "http://127.0.0.1:3000/user/game/getGameList/",
+        url: "https://app2800.acapp.acwing.com.cn/api/user/game/getGameList/",
         type: "GET",
         headers: {
           Authorization: "Bearer " + store.state.user.token,
@@ -93,7 +94,7 @@ export default {
           games.value = resp;
           for (let i = 0; i < JSON.parse(JSON.stringify(games.value.length)); i ++) {
             $.ajax({
-              url: "http://127.0.0.1:3000/user/account/username/",
+              url: "https://app2800.acapp.acwing.com.cn/api/user/account/username/",
               type: "GET",
               data: {
                 user_id: JSON.parse(JSON.stringify(games.value))[i].userId

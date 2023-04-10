@@ -36,7 +36,7 @@ export default {
   actions: {
     login(context, data) {
       $.ajax({
-        url: "http://127.0.0.1:3000/user/account/token/",
+        url: "https://app2800.acapp.acwing.com.cn/api/user/account/token/",
         type: "POST",
         data: {
           username: data.username,
@@ -58,7 +58,7 @@ export default {
     },
     getInfo(context, data) {
       $.ajax({
-        url: "http://127.0.0.1:3000/user/account/info/",
+        url: "https://app2800.acapp.acwing.com.cn/api/user/account/info/",
         type: "GET",
         headers: {
           Authorization: "Bearer " + context.state.token,
@@ -87,31 +87,31 @@ export default {
       context.commit("updatePullingInfo");
     },
     update_password(context, data) {
-      $.ajax({
-        type: "POST",
-        url: "http://127.0.0.1:3000/user/account/updatePassword/",
-        data: {
-          oldPassword: data.old_password,
-          newPassword: data.new_password,
-          confirmPassword: data.confirm_password,
-        },
-        headers: {
-          authorization: "Bearer " + context.state.token,
-        },
-        success(resp) {
-          if (resp.error_message === "success") {
-            context.commit("updateToken", resp.token);
-            localStorage.setItem("jwt_token", resp.token);
-            data.success(resp);
-          } else {
-            data.error(resp);
-          }
-        },
-        error(resp) {
-          data.error(resp);
-        },
-      });
-    }
+            $.ajax({
+                type: "POST",
+              url: "https://app2800.acapp.acwing.com.cn/api/user/account/update/password/",
+                data: {
+                    oldPassword: data.old_password,
+                    newPassword: data.new_password,
+                    confirmPassword: data.confirm_password,
+                },
+                headers: {
+                    authorization: "Bearer " + context.state.token,
+                },
+                success(resp) {
+                    if (resp.error_message === "success") {
+                        context.commit("updateToken", resp.token);
+                        localStorage.setItem("jwt_token", resp.token);
+                        data.success(resp);
+                    } else {
+                        data.error(resp);
+                    }
+                },
+                error(resp) {
+                    data.error(resp);
+                },
+            });
+        }
   },
   modules: {
   }

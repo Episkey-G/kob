@@ -153,7 +153,7 @@ export default {
     const user_info = () => {
       $.ajax({
         type: "GET",
-        url: "http://127.0.0.1:3000/user/account/info/",
+        url: "https://app2800.acapp.acwing.com.cn/api/user/account/info/",
         headers: {
           Authorization: "Bearer " + store.state.user.token,
         },
@@ -168,7 +168,7 @@ export default {
       error_message.value = "";
       $.ajax({
         type: "POST",
-        url: "http://127.0.0.1:3000/user/account/updateInfo/",
+        url: "https://app2800.acapp.acwing.com.cn/api/user/account/updateInfo/",
         headers: {
           Authorization: "Bearer " + store.state.user.token,
         },
